@@ -34,8 +34,8 @@ class NumpyBasics:
         x = np.array(x)
 
         # >>> YOUR CODE HERE >>>
-        even_values = ...
-        odd_values = ...
+        even_values = x[x % 2 == 0]
+        odd_values = x[x % 2 != 0]
         # <<< END OF YOUR CODE <<<
         return even_values, odd_values
 
@@ -88,8 +88,7 @@ class NumpyBasics:
         """
 
         # >>> YOUR CODE HERE >>>
-        
-        result = ...
+        result = np.linalg.inv(x @ x.T + lam * np.eye(x.shape[0]))
         # <<< END OF YOUR CODE <<<
         
         return result
@@ -124,8 +123,11 @@ class NumpyBasics:
         """
 
         # >>> YOUR CODE HERE >>>
-        
-        normalized = ...
+        x = np.maximum(x, 0)
+        max_val = np.max(x)
+        if max_val == 0:
+            return np.zeros_like(x)
+        normalized = x / max_val
         # <<< END OF YOUR CODE <<<
         return normalized 
 

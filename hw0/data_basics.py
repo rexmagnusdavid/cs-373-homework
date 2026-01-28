@@ -2,6 +2,7 @@ import os
 from typing import Tuple
 
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 import numpy as np
 import pandas as pd
 
@@ -32,7 +33,7 @@ class DataBasics:
         """
 
         # >>> YOUR CODE HERE >>>
-        self.df = ...
+        self.df = pd.read_csv(filename)
         # <<< END OF YOUR CODE <<<
 
 
@@ -59,7 +60,9 @@ class DataBasics:
         """
 
         # >>> YOUR CODE HERE >>>
-        ...
+        self.df = self.df.drop(columns=["Unnamed: 0"])
+        self.df = self.df.rename(columns={"ParentEduc": "ParentEducation"})
+        print(self.df.head(3))
         # <<< END OF YOUR CODE <<<
 
 
@@ -89,18 +92,18 @@ class DataBasics:
         
         # >>> YOUR CODE HERE >>>
         # Filter rows where WritingScore is greater than or equal to the given score
-        filtered_df = ...
+        filtered_df = self.df[self.df['WritingScore'] <= score]
         
         # Calculate the minimum, maximum, and median of the WritingScore
-        minimum = ...
-        maximum = ...
-        median = ...
+        minimum = filtered_df['MathScore'].min()
+        maximum = filtered_df['MathScore'].max()
+        median = filtered_df['MathScore'].median()
         # <<< END OF YOUR CODE <<<
 
         return float(minimum), float(maximum), float(median)
 
 
-    def generate_reading_score_histogram(self) -> plt.Figure:
+    def generate_reading_score_histogram(self) -> Figure:
         """
         This function generates a histogram of the reading scores. The
         histogram should have 15 bins and include appropriate labels and title.
@@ -122,7 +125,10 @@ class DataBasics:
         """
         fig = plt.figure()
         # >>> YOUR CODE HERE >>>
-        ...
+        plt.hist(self.df['ReadingScore'], bins=15, edgecolor='black')
+        plt.xlabel('Reading Score')
+        plt.ylabel('Frequency')
+        plt.title('Histogram of Reading Scores')
         # <<< END OF YOUR CODE <<<
 
 
@@ -132,7 +138,7 @@ class DataBasics:
 
         return fig
 
-    def generate_math_writing_scatterplot(self) -> plt.Figure:
+    def generate_math_writing_scatterplot(self) -> Figure:
         """
         This function generates a scatterplot of the math and writing scores
         with appropriate labels and title. The edge color of the point is set
@@ -155,7 +161,14 @@ class DataBasics:
         """
         fig = plt.figure()
         # >>> YOUR CODE HERE >>>
-        ...
+        x = self.df['MathScore']
+        y = self.df['WritingScore']
+        plt.scatter(x, y, edgecolor='white', alpha=0.95)
+        m, b = np.polyfit(x, y, 1)
+        plt.plot(x, m*x + b, color='red')
+        plt.xlabel('Math Score')
+        plt.ylabel('Writing Score')
+        plt.title('Scatterplot of Math and Writing Scores with Regression Line')
         # <<< END OF YOUR CODE <<<
 
 

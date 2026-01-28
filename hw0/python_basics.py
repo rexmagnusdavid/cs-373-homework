@@ -39,8 +39,8 @@ class Exponentiation:
             raise TypeError("power must be an integer")
         
         # >>> YOUR CODE HERE >>>
-        self.base = ...
-        self.power = ...
+        self.base = base
+        self.power = power
         # <<< END OF YOUR CODE <<<
 
     def compute(self) -> Union[int, float]:
@@ -62,7 +62,7 @@ class Exponentiation:
         if self.base == 0 and self.power <= 0:
             raise ValueError("0 cannot be raised to a non-positive power")
         # >>> YOUR CODE HERE >>>
-        self.result = ...
+        self.result = pow(self.base, self.power)
         # <<< END OF YOUR CODE <<<
 
         return self.result
@@ -86,8 +86,9 @@ class Exponentiation:
 
         
         # >>> YOUR CODE HERE >>>
-        ...
-
+        print(f"Base: {self.base:.2f}")
+        print(f"Power: {self.power}")
+        print(f"Result: {self.result:.4f}")
         # <<< END OF YOUR CODE <<<
 
 
@@ -108,7 +109,7 @@ class DataStructure:
         """
 
         # >>> YOUR CODE HERE >>>
-        my_list = ...
+        my_list = [random.randint(-5, 5) for _ in range(8)]
         # <<< END OF YOUR CODE <<<
         return my_list
 
@@ -129,7 +130,7 @@ class DataStructure:
         """
 
         # >>> YOUR CODE HERE >>>
-        nonneg = ...
+        nonneg = {x for x in my_list if x >= 0}
         # <<< END OF YOUR CODE <<<
         return nonneg
 
@@ -156,8 +157,15 @@ class DataStructure:
         """
 
         # >>> YOUR CODE HERE >>>
-        counts = ...
-        
+        counts = {"neg": 0, "zero": 0, "pos": 0}
+        for num in my_list:
+            if num < 0:
+                counts["neg"] += 1
+                continue
+            if num == 0:
+                counts["zero"] += 1
+                continue
+            counts["pos"] += 1
         # <<< END OF YOUR CODE <<<
         return counts
 
